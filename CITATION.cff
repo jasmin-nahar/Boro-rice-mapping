@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+type: software
+title: "Phenology-Based Boro Rice Mapping in Northwestern Bangladesh"
+version: 1.0.0
+date-released: 2026-08-20
+authors:
+  - family-names: "Jui"
+    given-names: "Mst. Jesmin Nahar"
+repository-code: "https://github.com/jasmin-nahar/Boro-rice-mapping"
+keywords:
+  - Boro rice
+  - PlanetScope
+  - Sentinel-2
+  - image fusion
+  - crop phenology
+  - Random Forest
+  - XGBoost
+  - geographic transfer
