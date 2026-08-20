@@ -1,0 +1,16 @@
+affine
+geopandas
+joblib
+jupyterlab
+matplotlib
+numpy
+openpyxl
+pandas
+pyproj
+rasterio
+scikit-image
+scikit-learn
+scipy
+shapely
+tqdm
+xgboost

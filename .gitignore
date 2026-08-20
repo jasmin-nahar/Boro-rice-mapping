@@ -1,0 +1,19 @@
+# Restricted or large input/output data
+Data/
+Outputs/
+*.tif
+*.tiff
+*.jp2
+*.img
+*.joblib
+*.pkl
+
+# Credentials and local configuration
+.env
+*.key
+*.pem
+
+# Python/Jupyter
+.venv/
+__pycache__/
+.ipynb_checkpoints/
