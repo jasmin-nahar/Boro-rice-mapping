@@ -1,5 +1,5 @@
 # Phenology-Based Boro Rice Mapping in Northwestern Bangladesh
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22070210.svg)](https://doi.org/10.5281/zenodo.22070210)
 This repository contains the computational notebooks used for PlanetScope preparation, Sentinel-2/PlanetScope HPF fusion, phenological feature construction, classification, spatial leakage assessment, bidirectional geographic transfer, temporal ablation, and final point-level validation for Tanore and Manda, Bangladesh.
 
 ## Important data notice
