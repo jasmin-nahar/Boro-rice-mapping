@@ -3,7 +3,8 @@ message: "If you use this software, please cite it using the metadata below."
 type: software
 title: "Phenology-Based Boro Rice Mapping in Northwestern Bangladesh"
 version: 1.0.0
-date-released: 2026-08-20
+date-released: 2026-08-23
+doi: 10.5281/zenodo.22070210
 authors:
   - family-names: "Jui"
     given-names: "Mst. Jesmin Nahar"
