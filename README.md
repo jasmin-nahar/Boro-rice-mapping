@@ -1,46 +1,61 @@
-# Phenology-Based Boro Rice Mapping in Northwestern Bangladesh
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22070210.svg)](https://doi.org/10.5281/zenodo.22070210)
-This repository contains the computational notebooks used for PlanetScope preparation, Sentinel-2/PlanetScope HPF fusion, phenological feature construction, classification, spatial leakage assessment, bidirectional geographic transfer, temporal ablation, and final point-level validation for Tanore and Manda, Bangladesh.
+# Google Earth Engine workflow
 
-## Important data notice
+This folder contains a configuration-driven Google Earth Engine JavaScript
+workflow for selecting, quality-masking, scaling, previewing, and exporting
+Sentinel-2 Level-2A surface-reflectance imagery for PlanetScope–Sentinel-2 HPF
+fusion. The same script can be used for Tanore, Manda, or another study area.
 
-PlanetScope source imagery is not redistributed because of licensing restrictions. Place authorized local data beneath `Data/` using the folder structure expected by the notebooks. Do not commit credentials, private API keys, or restricted GPS attributes.
+## Script
 
-## Project-root configuration
+- `01_Generic_Sentinel2_Export.js`: creates one export task for every exact date
+  listed in the user-editable `CONFIG` block.
 
-The notebooks no longer contain the original machine-specific `D:` drive path. Use either method below.
+## Dataset and output
 
-1. Launch Jupyter from the repository root; or
-2. Set the `BORO_PROJECT_ROOT` environment variable to the local repository path.
+- Earth Engine collection: `COPERNICUS/S2_SR_HARMONIZED`
+- Exported bands: Blue, Green, Red, NIR
+- Data type: Float32 surface reflectance
+- Scale factor: 0.0001
+- Output resolution: 10 m
+- Output CRS: EPSG:32645
+- NoData value: -9999
+- Output format: cloud-optimized GeoTIFF
 
-Windows PowerShell example:
+NDVI is shown only as a quality-control preview. It is recalculated in the
+downstream preparation/fusion notebooks and is not exported by this script.
 
-```powershell
-$env:BORO_PROJECT_ROOT = "D:\Boro Rice Classification"
-jupyter lab
+## Running the script
+
+1. Open the script in the Google Earth Engine Code Editor.
+2. Edit only the `CONFIG` block: set the study-area name, AOI source, Earth
+   Engine asset ID, Google Drive folder, acquisition dates, and output CRS.
+3. Alternatively, import/draw a geometry, assign it to `CUSTOM_GEOMETRY`, and
+   set `aoiMode` to `geometry`.
+4. Run the script and inspect the Console scene metadata and map previews.
+5. Confirm that each exact date returns at least one scene.
+6. Open the **Tasks** tab and run every image-export task.
+7. Archive the printed scene IDs, product IDs, sensing times, MGRS tiles,
+   processing baselines, and cloud percentages with the publication outputs.
+
+### Example: Manda
+
+```javascript
+studyAreaName: 'Manda',
+aoiMode: 'asset',
+aoiAssetId: 'projects/YOUR_PROJECT/assets/Manda',
+exportFolder: 'S2_Manda',
+acquisitionDates: ['2026-01-23', '2026-03-04', '2026-04-10']
 ```
 
-## Notebook order
+For a study area outside UTM Zone 45N, update `outputCrs` to the appropriate
+projected CRS before exporting.
 
-1. Run the two `01_...Preparation_NDVI` notebooks.
-2. Run the two `02_...3Date_HPF_Fusion` notebooks.
-3. Run the two `03_...Classification` notebooks.
-4. Run notebooks `04` through `08` in numerical order.
+The approximately 3,000 km² monthly download quota reported in the manuscript
+was a project-specific PlanetScope account constraint. It was not a Google Earth
+Engine or Sentinel-2 download limit.
 
-## Generated files
+## Data-access note
 
-Figures, tables, reports, maps, and models are generated beneath `Outputs/`. Those folders are ignored by Git because the products can be large and may contain machine-specific paths.
-
-## Environment
-
-Create a clean environment and install the dependencies:
-
-```bash
-python -m venv .venv
-pip install -r requirements.txt
-jupyter lab
-```
-
-## Reproducibility
-
-The analysis code and parameter values are preserved. Notebook outputs and execution counters were cleared before publication so that old local paths and embedded figures are not mistaken for a clean rerun. Execute the notebooks from top to bottom to regenerate outputs.
+An Earth Engine AOI asset path is not an authentication credential. Users who
+cannot access the configured asset must upload/import an equivalent boundary
+and update `aoiAssetId`, or use the geometry mode.
